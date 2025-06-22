@@ -6,7 +6,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](CONTRIBUTING.md)
 [![Accessibility](https://img.shields.io/badge/Accessibility-WCAG%202.1%20AA-blue?style=for-the-badge)](https://www.w3.org/TR/WCAG21/)
 [![Digital Public Good](https://img.shields.io/badge/Digital_Public_Good-✓-brightgreen?style=for-the-badge)](https://digitalpublicgoods.net/)
-[![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/Trimesters-ai/ester?style=for-the-badge&label=CodeRabbit%20Reviews&color=FF570A&labelColor=171717)](https://coderabbit.ai)
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/Trimesters-ai/Ester?utm_source=oss&utm_medium=github&utm_campaign=Trimesters-ai%2FEster&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
 </div>
 
@@ -109,7 +109,8 @@ graph TD
 
 ### Phase 1: Postpartum Recovery (Current)
 - [x] Basic chat interface
-- [x] Whoop integration
+- [ ] Memory (est. July 2025)
+- [ ] Whoop integration
 - [ ] Health insights dashboard
 - [ ] Basic AI recommendations
 
