@@ -12,7 +12,9 @@
 
 ## 🌟 About Ester
 
-Ester is an open-source AI companion designed to support individuals through all stages of maternal health. Starting with postpartum recovery, Ester provides personalized guidance by integrating with health wearables and offering evidence-based support.
+Ester is your AI-powered companion for pregnancy and postpartum. She supports you through the 1st, 2nd, and 3rd trimesters, as well as postpartum recovery—offering a chat interface, health insights, and personalized recommendations.
+
+**Important:** All guidance provided by Ester is non-medical and should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult your healthcare provider for any medical concerns.
 
 **Why Ester?**
 - 🤰 **Comprehensive Care**: From pregnancy to postpartum and beyond
@@ -107,12 +109,13 @@ graph TD
 
 ## 🎯 Roadmap
 
-### Phase 1: Postpartum Recovery (Current)
-- [x] Basic chat interface
+### Phase 1: Pregnancy & Postpartum Support (Current)
+- [x] Basic chat interface for postpartum support
+- [x] Basic chat interface for pregnancy support (all trimesters)
 - [ ] Memory (est. July 2025)
 - [ ] Whoop integration
-- [ ] Health insights dashboard
-- [ ] Basic AI recommendations
+- [ ] Health insights dashboard (pregnancy and postpartum)
+- [ ] Basic AI recommendations for all trimesters and postpartum
 
 ### Phase 2: Pregnancy Support
 - [ ] Pregnancy tracking
