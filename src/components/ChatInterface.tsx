@@ -25,6 +25,7 @@ const BREASTFEEDING_PROMPT = "What does my recovery score mean for breastfeeding
 export const ChatInterface = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { messages, addMessage, user } = useStore();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -91,6 +92,8 @@ export const ChatInterface = () => {
     e.preventDefault();
     if (!input.trim() || !user) return;
 
+    // Clear any previous error when user tries again
+    setErrorMessage(null);
 
     const userMessage = {
       id: crypto.randomUUID(),
@@ -211,8 +214,20 @@ export const ChatInterface = () => {
       setTimeout(() => {
         inputRef.current?.focus();
       }, 100);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending message:', error);
+      const message =
+        typeof error?.message === 'string'
+          ? error.message
+          : 'Something went wrong while talking to the AI. Please try again.';
+      // Special-case missing API key to give a clear instruction
+      if (message.includes('Missing OpenAI API key')) {
+        setErrorMessage('Missing OpenAI API key. Please add your key in the Profile tab or configure VITE_OPENAI_API_KEY in your environment.');
+      } else if (message.toLowerCase().includes('openai api error')) {
+        setErrorMessage('The OpenAI API returned an error. Please check that your API key is valid and has available quota.');
+      } else {
+        setErrorMessage(message);
+      }
       setIsLoading(false);
       setTimeout(() => {
         inputRef.current?.focus();
@@ -246,6 +261,14 @@ export const ChatInterface = () => {
         ref={scrollContainerRef}
       >
 
+        {errorMessage && (
+          <div className="mb-2 max-w-5xl mx-auto">
+            <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+              {errorMessage}
+            </div>
+          </div>
+        )}
+
         {messages.map((message) => (
           <div
             key={message.id}
@@ -272,15 +295,17 @@ export const ChatInterface = () => {
                     (function preprocessMarkdown(text: string): string {
                       // Step 1: Replace ISO dates with user-friendly dates
                       let content = text.replace(/\b(\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:[+-]\d{2}:\d{2})?)?)\b/g, (dateStr) => {
-                        let d = new Date(dateStr);
+                        const d = new Date(dateStr);
                         if (!isNaN(d.getTime())) {
                           try {
                             const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                            return require('date-fns-tz').formatInTimeZone
-                              ? require('date-fns-tz').formatInTimeZone(d, userTimezone, 'MMMM d, yyyy')
-                              : d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+                            return formatInTimeZone(d, userTimezone, 'MMMM d, yyyy');
                           } catch {
-                            return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+                            return d.toLocaleDateString(undefined, {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            });
                           }
                         }
                         return dateStr;
